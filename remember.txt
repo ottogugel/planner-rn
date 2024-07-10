@@ -1,0 +1,62 @@
+Criação do projeto
+
+npx create-expo-app --template
+Navigation (TypeScript)
+Colocar o nome da aplicação
+
+Deletar as pastas app, dentro de assets, fonts, constants, components
+
+Configurar o tsconfig.json
+Configurar o app.json
+
+Instalando Nativewind (https://www.nativewind.dev/v4/getting-started/expo-router)
+npx expo install nativewind@^4.0.1 react-native-reanimated tailwindcss
+
+npx pod-install (se tiver no ios)
+
+npx tailwindcss init (to create a tailwind.config.js file)
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  // NOTE: Update this to include the paths to all of your component files.
+  content: ["./app/**/*.{js,jsx,ts,tsx}"],
+  presets: [require("nativewind/preset")],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+Create a CSS file and add the Tailwind directives
+global.CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+no arquivo babel.config.js
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [
+      ["babel-preset-expo", { jsxImportSource: "nativewind" }],
+      "nativewind/babel",
+    ],
+  };
+};
+criar um arquivo metro.config.js
+colar e ajustar o input: "./src/styles/global.css"
+
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativeWind } = require('nativewind/metro');
+
+const config = getDefaultConfig(__dirname)
+
+module.exports = withNativeWind(config, { input: './global.css' })
+
+criar uma pasta types para o className nas tags e criar o arquivo nativewind-env.d.ts
+com a informação /// <reference types="nativewind/types" />
+
+configurando as fontes do google
+npx expo install expo-font @expo-google-fonts/inter
+
+{"\n"} = quebra linha
